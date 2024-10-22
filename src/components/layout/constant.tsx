@@ -1,11 +1,11 @@
 export const userNav = [
   {
-    path: "/profile",
-    name: "Profile",
-  },
-  {
     path: "/complain",
     name: "Complain",
+  },
+  {
+    path: "/profile",
+    name: "Profile",
   },
 ];
 

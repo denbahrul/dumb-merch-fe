@@ -9,6 +9,7 @@ export default {
           primary: "#0B0B0B",
           secondary: "#181818",
           teritery: "#464646",
+          quaternary: "#212121",
         },
         border: {
           primary: "#BCBCBC",
