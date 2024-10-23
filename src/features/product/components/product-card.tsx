@@ -9,7 +9,7 @@ export default function ProductCard({
   stock,
 }: IProduct) {
   return (
-    <Link to={`product/${id}`}>
+    <Link to={`/product/${id}`}>
       <div className="w-[100%] rounded-lg bg-background-quaternary p-2">
         <div className="h-[312px] w-full overflow-hidden rounded-md">
           <img

@@ -1,5 +1,5 @@
-import ChatList from "../../../features/complain/components/chat-list";
-import UserComplainList from "../../../features/complain/components/user-complain-list";
+import ChatList from "../../features/complain/components/chat-list";
+import UserComplainList from "../../features/complain/components/user-complain-list";
 
 function ComplainPage() {
   return (

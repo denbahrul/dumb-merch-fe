@@ -1,3 +1,5 @@
+import { green } from "@mui/material/colors";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
@@ -15,6 +17,7 @@ export default {
           primary: "#BCBCBC",
         },
         red: "#F74D4D",
+        green: "#56C05A",
         gray: {
           textA: "#6A6A6A",
           textB: "#B7B7B7",
@@ -23,5 +26,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 };
