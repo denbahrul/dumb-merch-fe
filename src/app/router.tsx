@@ -10,6 +10,8 @@ import AdminLayout from "../components/layout/admin-layout";
 import UserLayout from "../components/layout/user-layout";
 import CategoryListPage from "./routes/admin/category-list";
 import ProductListPage from "./routes/admin/product-list";
+import EditProductPage from "./routes/admin/edit-product";
+import EditCategoryPage from "./routes/admin/edit-category";
 
 export default function RouterApp() {
   const router = createBrowserRouter([
@@ -66,6 +68,14 @@ export default function RouterApp() {
         {
           path: "product",
           element: <ProductListPage />,
+        },
+        {
+          path: "edit-category/:id",
+          element: <EditCategoryPage />,
+        },
+        {
+          path: "edit-product/:id",
+          element: <EditProductPage />,
         },
       ],
     },

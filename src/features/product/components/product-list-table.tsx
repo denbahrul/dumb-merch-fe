@@ -5,6 +5,7 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import { useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
@@ -88,6 +89,10 @@ const rows = [
 ];
 
 export default function ProductListTable() {
+  const navigate = useNavigate();
+  function onEdit(id: number) {
+    navigate(`/admin/edit-product/${id}`);
+  }
   return (
     <TableContainer className="rounded-md text-white">
       <Table
@@ -116,7 +121,12 @@ export default function ProductListTable() {
               <StyledTableCell align="left">{row.qty}</StyledTableCell>
               <StyledTableCell align="left">
                 <div className="flex h-10 w-full items-center justify-center gap-2">
-                  <button className="bg-green w-20 rounded-md py-2">
+                  <button
+                    className="bg-green w-20 rounded-md py-2"
+                    onClick={() => {
+                      onEdit(row.id);
+                    }}
+                  >
                     Edit
                   </button>
                   <button className="w-20 rounded-md bg-red py-2">
