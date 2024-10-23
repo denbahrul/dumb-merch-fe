@@ -5,14 +5,14 @@ export default function MyProfile() {
   return (
     <div className="col-span-3">
       <PageTitle title="My Profile" />
-      <div className="flex gap-8">
+      <div className="gap-8 md:flex">
         <img
-          //   src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          src="https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          // src="https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           alt="Profile Photo"
-          className="w-[50%] rounded-md object-cover"
+          className="m-auto h-64 w-64 rounded-full object-cover md:min-h-[480px] md:min-w-[50%] md:rounded-md"
         />
-        <div className="flex flex-col justify-between gap-4">
+        <div className="mt-4 flex flex-col gap-8 md:mt-0">
           <ProfileDetail title="Name" content="Yosep Muhammad" />
           <ProfileDetail title="Email" content="yosepgans@gmail.com" />
           <ProfileDetail title="Phone" content="083896833122" />

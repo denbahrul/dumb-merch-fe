@@ -4,11 +4,11 @@ import { userNav } from "./constant";
 function UserNavbar() {
   return (
     <div>
-      <div className="bg-background-primary fixed m-auto w-[100%]">
+      <div className="fixed m-auto w-[100%] bg-background-primary">
         <div className="m-auto flex max-w-[1280px] items-center justify-between px-8 py-4">
           <div>
             <Link to="/">
-              <img src="dm-logo.svg" alt="dumb merch logo" className="h-14" />
+              <img src="/dm-logo.svg" alt="dumb merch logo" className="h-14" />
             </Link>
           </div>
           <div className="flex gap-6">

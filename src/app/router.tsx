@@ -6,6 +6,7 @@ import HomePage from "./routes/customer/home";
 import ComplainPage from "./routes/customer/complain";
 import UserNavbar from "../components/layout/user-navbar";
 import ProfilePage from "./routes/customer/profile";
+import ProductDetailPage from "./routes/customer/product-detail";
 
 export default function RouterApp() {
   const router = createBrowserRouter([
@@ -37,6 +38,10 @@ export default function RouterApp() {
         {
           path: "profile",
           element: <ProfilePage />,
+        },
+        {
+          path: "product/:id",
+          element: <ProductDetailPage />,
         },
       ],
     },

@@ -3,7 +3,7 @@ import MyTransaction from "../../../features/profile/components/my-transaction";
 
 function ProfilePage() {
   return (
-    <div className="grid grid-cols-5 gap-4 p-8">
+    <div className="gap-4 p-8 lg:grid lg:grid-cols-5">
       <MyProfile />
       <MyTransaction />
     </div>

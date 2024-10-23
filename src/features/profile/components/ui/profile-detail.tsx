@@ -7,8 +7,8 @@ export default function ProfileDetail({
 }) {
   return (
     <div>
-      <p className="text-red text-xl font-bold">{title}</p>
-      <p>{content}</p>
+      <p className="font-bold text-red md:text-lg">{title}</p>
+      <p className="font-extralight">{content}</p>
     </div>
   );
 }
