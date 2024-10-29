@@ -1,56 +1,35 @@
-import { styled } from "@mui/material/styles";
+import { StyledTableCell, StyledTableRow } from "@/components/ui/styledTable";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/features/complain/hooks/use-store";
+import { getCategory } from "@/stores/category/async";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-const StyledTableCell = styled(TableCell)(() => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#303030",
-    color: "#FFFFFF",
-    fontFamily: "'Sen', serif",
-    fontSize: 16,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-    color: "#FFFFFF",
-    fontFamily: "'Sen', serif",
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(() => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: "#232323",
-  },
-  "&:nth-of-type(even)": {
-    backgroundColor: "#303030",
-  },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
-}));
-
-function createData(id: number, categoryName: string) {
-  return { id, categoryName };
-}
-
-const rows = [
-  createData(1, "Mouse"),
-  createData(2, "Keyboard"),
-  createData(3, "Camera"),
-  createData(4, "Bag"),
-  createData(5, "Handphome"),
-];
 
 export default function CategoryListTable() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { entities, loading } = useAppSelector((state) => state.category);
+  const categories = entities;
+
+  useEffect(() => {
+    dispatch(getCategory());
+  }, []);
+
   function onEdit(id: number) {
     navigate(`/admin/edit-category/${id}`);
   }
+
+  if (loading === "pending") {
+    return <p>Loading</p>;
+  }
+
   return (
     <TableContainer className="rounded-md text-white">
       <Table
@@ -60,21 +39,23 @@ export default function CategoryListTable() {
         <TableHead>
           <TableRow>
             <StyledTableCell align="left">No</StyledTableCell>
-            <StyledTableCell align="left">Category Name</StyledTableCell>
+            <StyledTableCell align="center">Category Name</StyledTableCell>
             <StyledTableCell align="center">Action</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.id}>
-              <StyledTableCell align="left">{row.id}</StyledTableCell>
-              <StyledTableCell align="left">{row.categoryName}</StyledTableCell>
+          {categories!.map((category) => (
+            <StyledTableRow key={category.id}>
+              <StyledTableCell align="left">{category.id}</StyledTableCell>
+              <StyledTableCell align="center">
+                {category.categoryName}
+              </StyledTableCell>
               <StyledTableCell align="left">
                 <div className="flex h-10 w-full items-center justify-center gap-2">
                   <button
                     className="w-20 rounded-md bg-green py-2"
                     onClick={() => {
-                      onEdit(row.id);
+                      onEdit(category.id);
                     }}
                   >
                     Edit

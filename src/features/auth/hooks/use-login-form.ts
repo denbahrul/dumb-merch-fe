@@ -1,13 +1,12 @@
-import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { LoginFormInput, loginSchema } from "../validations/loginSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { apiV1 } from "@/libs/api";
-import Cookies from "js-cookie";
-import Swal from "sweetalert2";
-import axios from "axios";
 import { useAppDispatch } from "@/features/complain/hooks/use-store";
+import { apiV1 } from "@/libs/api";
 import { getUserLogged } from "@/stores/auth/async";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
+import { LoginFormInput, loginSchema } from "../validations/loginSchema";
 
 export function useLoginForm() {
   const {
@@ -18,7 +17,6 @@ export function useLoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   async function onSubmit({ email, password }: LoginFormInput) {
     try {

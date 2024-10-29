@@ -1,16 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "@/features/complain/hooks/use-store";
+import { apiV1 } from "@/libs/api";
+import { getUserLogged } from "@/stores/auth/async";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 import {
   RegisterFormInput,
   registerSchema,
 } from "../validations/registerSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { apiV1 } from "@/libs/api";
-import Cookies from "js-cookie";
-import Swal from "sweetalert2";
-import axios from "axios";
-import { useAppDispatch } from "@/features/complain/hooks/use-store";
-import { getUserLogged } from "@/stores/auth/async";
 
 export function useRegisterForm() {
   const dispatch = useAppDispatch();
@@ -22,7 +21,6 @@ export function useRegisterForm() {
     resolver: zodResolver(registerSchema),
   });
 
-  const navigate = useNavigate();
   async function onSubmit({ email, password, fullName }: RegisterFormInput) {
     try {
       const response = await apiV1.post("/auth/register", {

@@ -1,7 +1,7 @@
 export const ProductData = [
   {
     id: 1,
-    name: "Camera",
+    productName: "Camera",
     photo:
       "https://images.pexels.com/photos/3602258/pexels-photo-3602258.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -10,7 +10,7 @@ export const ProductData = [
   },
   {
     id: 2,
-    name: "Camera",
+    productName: "Camera",
     photo:
       "https://images.pexels.com/photos/2251206/pexels-photo-2251206.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -19,7 +19,7 @@ export const ProductData = [
   },
   {
     id: 3,
-    name: "Camera",
+    productName: "Camera",
     photo:
       "https://images.pexels.com/photos/3602258/pexels-photo-3602258.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -28,7 +28,7 @@ export const ProductData = [
   },
   {
     id: 4,
-    name: "Camera",
+    productName: "Camera",
     photo:
       "https://images.pexels.com/photos/2251206/pexels-photo-2251206.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -37,7 +37,7 @@ export const ProductData = [
   },
   {
     id: 5,
-    name: "Camera",
+    productName: "Camera",
     photo:
       "https://images.pexels.com/photos/14444097/pexels-photo-14444097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -46,7 +46,7 @@ export const ProductData = [
   },
   {
     id: 6,
-    name: "Camera",
+    productName: "Camera",
     photo:
       "https://images.pexels.com/photos/3602258/pexels-photo-3602258.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -55,7 +55,7 @@ export const ProductData = [
   },
   {
     id: 7,
-    name: "Camera",
+    productName: "Camera",
     photo:
       "https://images.pexels.com/photos/14444097/pexels-photo-14444097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -64,7 +64,7 @@ export const ProductData = [
   },
   {
     id: 8,
-    name: "Camera",
+    productName: "Camera",
     photo:
       "https://images.pexels.com/photos/3602258/pexels-photo-3602258.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -73,7 +73,7 @@ export const ProductData = [
   },
   {
     id: 9,
-    name: "Camera",
+    productName: "Camera",
     photo:
       "https://images.pexels.com/photos/3602258/pexels-photo-3602258.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -82,7 +82,7 @@ export const ProductData = [
   },
   {
     id: 10,
-    name: "Camera",
+    productName: "Camera",
     photo:
       "https://images.pexels.com/photos/3602258/pexels-photo-3602258.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -91,7 +91,7 @@ export const ProductData = [
   },
   {
     id: 11,
-    name: "Camera",
+    productName: "Camera",
     photo:
       "https://images.pexels.com/photos/3602258/pexels-photo-3602258.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -100,7 +100,7 @@ export const ProductData = [
   },
   {
     id: 12,
-    name: "Camera",
+    productName: "Camera",
     photo:
       "https://images.pexels.com/photos/3602258/pexels-photo-3602258.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",

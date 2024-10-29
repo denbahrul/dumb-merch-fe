@@ -1,38 +1,10 @@
-import { styled } from "@mui/material/styles";
+import { StyledTableCell, StyledTableRow } from "@/components/ui/styledTable";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useNavigate } from "react-router-dom";
-
-const StyledTableCell = styled(TableCell)(() => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#303030",
-    color: "#FFFFFF",
-    fontFamily: "'Sen', serif",
-    fontSize: 16,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-    color: "#FFFFFF",
-    fontFamily: "'Sen', serif",
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(() => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: "#232323",
-  },
-  "&:nth-of-type(even)": {
-    backgroundColor: "#303030",
-  },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
-}));
 
 function createData(
   id: number,
@@ -122,7 +94,7 @@ export default function ProductListTable() {
               <StyledTableCell align="left">
                 <div className="flex h-10 w-full items-center justify-center gap-2">
                   <button
-                    className="bg-green w-20 rounded-md py-2"
+                    className="w-20 rounded-md bg-green py-2"
                     onClick={() => {
                       onEdit(row.id);
                     }}

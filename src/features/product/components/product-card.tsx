@@ -4,7 +4,7 @@ import { IProduct } from "../../../types/product";
 export default function ProductCard({
   id,
   photo,
-  name,
+  productName,
   price,
   stock,
 }: IProduct) {
@@ -19,7 +19,7 @@ export default function ProductCard({
           />
         </div>
         <div className="py-2">
-          <p className="text-xl text-red">{name}</p>
+          <p className="text-xl text-red">{productName}</p>
           <p className="py-1 text-base">Rp. {price}</p>
           <p className="text-sm font-light text-gray-textB">Stock : {stock}</p>
         </div>
