@@ -1,69 +1,33 @@
 import { StyledTableCell, StyledTableRow } from "@/components/ui/styledTable";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/features/complain/hooks/use-store";
+import { getProduct } from "@/stores/product/async";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-function createData(
-  id: number,
-  productPhoto: string,
-  productName: string,
-  productDesc: string,
-  price: string,
-  qty: number,
-) {
-  return { id, productPhoto, productName, productDesc, price, qty };
-}
-
-const rows = [
-  createData(
-    1,
-    "photo.jpg",
-    "Monitor",
-    "Lorem ipsum does amet wkwk wkwk hahah cokkk",
-    "2.500.000",
-    143,
-  ),
-  createData(
-    2,
-    "photo.jpg",
-    "Monitor",
-    "Lorem ipsum does amet wkwk wkwk hahah cokkk",
-    "2.500.000",
-    143,
-  ),
-  createData(
-    3,
-    "photo.jpg",
-    "Monitor",
-    "Lorem ipsum does amet wkwk wkwk hahah cokkk",
-    "2.500.000",
-    143,
-  ),
-  createData(
-    4,
-    "photo.jpg",
-    "Monitor",
-    "Lorem ipsum does amet wkwk wkwk hahah cokkk",
-    "2.500.000",
-    143,
-  ),
-  createData(
-    5,
-    "photo.jpg",
-    "Monitor",
-    "Lorem ipsum does amet wkwk wkwk hahah cokkk",
-    "2.500.000",
-    143,
-  ),
-];
 
 export default function ProductListTable() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { entities, loading } = useAppSelector((state) => state.product);
+  const products = entities;
+
+  useEffect(() => {
+    dispatch(getProduct());
+  }, []);
+
   function onEdit(id: number) {
     navigate(`/admin/edit-product/${id}`);
+  }
+
+  if (loading === "pending") {
+    return <p>Loading</p>;
   }
   return (
     <TableContainer className="rounded-md text-white">
@@ -83,20 +47,36 @@ export default function ProductListTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.id}>
-              <StyledTableCell align="left">{row.id}</StyledTableCell>
-              <StyledTableCell align="left">{row.productPhoto}</StyledTableCell>
-              <StyledTableCell align="left">{row.productName}</StyledTableCell>
-              <StyledTableCell align="left">{row.productDesc}</StyledTableCell>
-              <StyledTableCell align="left">{row.price}</StyledTableCell>
-              <StyledTableCell align="left">{row.qty}</StyledTableCell>
+          {products!.map((product) => (
+            <StyledTableRow key={product.id}>
+              <StyledTableCell align="left">{product.id}</StyledTableCell>
+              <StyledTableCell align="left">
+                <div className="grid w-24 grid-cols-2 gap-1">
+                  {product.productImage.map((image) => {
+                    return (
+                      <img
+                        src={image.url}
+                        alt="product photo"
+                        className="h-full w-full rounded-sm object-cover"
+                      />
+                    );
+                  })}
+                </div>
+              </StyledTableCell>
+              <StyledTableCell align="left">
+                {product.productName}
+              </StyledTableCell>
+              <StyledTableCell align="left">
+                {product.description}
+              </StyledTableCell>
+              <StyledTableCell align="left">{product.price}</StyledTableCell>
+              <StyledTableCell align="left">{product.quantity}</StyledTableCell>
               <StyledTableCell align="left">
                 <div className="flex h-10 w-full items-center justify-center gap-2">
                   <button
                     className="w-20 rounded-md bg-green py-2"
                     onClick={() => {
-                      onEdit(row.id);
+                      onEdit(product.id);
                     }}
                   >
                     Edit

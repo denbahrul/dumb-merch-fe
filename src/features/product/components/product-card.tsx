@@ -3,17 +3,17 @@ import { IProduct } from "../../../types/product";
 
 export default function ProductCard({
   id,
-  photo,
+  productImage,
   productName,
   price,
-  stock,
+  quantity,
 }: IProduct) {
   return (
     <Link to={`/product/${id}`}>
       <div className="w-[100%] rounded-lg bg-background-quaternary p-2">
         <div className="h-[312px] w-full overflow-hidden rounded-md">
           <img
-            src={photo}
+            src={productImage[0].url}
             alt="product photo"
             className="h-full w-full object-cover"
           />
@@ -21,7 +21,9 @@ export default function ProductCard({
         <div className="py-2">
           <p className="text-xl text-red">{productName}</p>
           <p className="py-1 text-base">Rp. {price}</p>
-          <p className="text-sm font-light text-gray-textB">Stock : {stock}</p>
+          <p className="text-sm font-light text-gray-textB">
+            Stock : {quantity}
+          </p>
         </div>
       </div>
     </Link>
