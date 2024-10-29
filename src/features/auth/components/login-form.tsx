@@ -1,18 +1,26 @@
-import { useNavigate } from "react-router-dom";
 import Button from "../../../components/ui/button";
 import FormInput from "../../../components/ui/form-input";
+import { useLoginForm } from "../hooks/use-login-form";
 
 export default function Login() {
-  const navigate = useNavigate();
-  function onClick() {
-    navigate("/");
-  }
+  const { register, handleSubmit, errors, onSubmit } = useLoginForm();
+
   return (
-    <form className="flex flex-col gap-4">
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
       <p className="mb-4 text-2xl font-bold">Login</p>
-      <FormInput placeholder="Email" type="email" />
-      <FormInput placeholder="Password" type="password" />
-      <Button onClick={onClick} title="Login" color="red" h="12" />
+      <FormInput {...register("email")} placeholder="Email" type="email" />
+      {errors.email && (
+        <p className="text-rose-600">* {errors.email.message}</p>
+      )}
+      <FormInput
+        {...register("password")}
+        placeholder="Password"
+        type="password"
+      />
+      {errors.password && (
+        <p className="text-rose-600">* {errors.password.message}</p>
+      )}
+      <Button type="submit" title="Login" color="red" h="12" />
     </form>
   );
 }

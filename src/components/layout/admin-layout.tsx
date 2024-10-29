@@ -1,8 +1,20 @@
-import { Outlet } from "react-router-dom";
+import { roleEnum } from "@/entities/user";
+import { useAppSelector } from "@/features/complain/hooks/use-store";
+import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "../ui/navbar";
 import { adminNav } from "./constant";
 
 export default function AdminLayout() {
+  const navigate = useNavigate();
+  const auth = useAppSelector((state) => state.auth.entities);
+  const loading = useAppSelector((state) => state.auth.loading);
+
+  if (!auth?.role && loading !== "pending") {
+    navigate("/login");
+  } else if (auth?.role === roleEnum.CUSTOMER) {
+    navigate("/");
+  }
+
   return (
     <div>
       <Navbar navRole={adminNav} home="admin/home" />

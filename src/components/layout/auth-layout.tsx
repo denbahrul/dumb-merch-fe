@@ -1,6 +1,16 @@
-import { Link, Outlet } from "react-router-dom";
+import { roleEnum } from "@/entities/user";
+import { useAppSelector } from "@/features/complain/hooks/use-store";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 export default function AuthLayout() {
+  const navigate = useNavigate();
+  const auth = useAppSelector((state) => state.auth.entities);
+
+  if (auth?.role === roleEnum.CUSTOMER) {
+    navigate("/");
+  } else if (auth?.role === roleEnum.ADMIN) {
+    navigate("/admin");
+  }
   return (
     <div className="m-auto max-w-[1280px] items-center justify-between gap-10 px-8 pb-16 pt-16 md:flex md:h-[100vh] md:pt-0">
       <div className="md:w-[60%]">

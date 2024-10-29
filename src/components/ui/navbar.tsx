@@ -1,16 +1,18 @@
 import Badge, { BadgeProps } from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Cookies from "js-cookie";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
 import { Link, NavLink } from "react-router-dom";
 
-const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+const StyledBadge = styled(Badge)<BadgeProps>(() => ({
   "& .MuiBadge-badge": {
-    right: -3,
-    top: 13,
-    border: `2px solid ${theme.palette.background.paper}`,
-    padding: "0 4px",
+    right: -1,
+    top: 2,
+    border: `1px solid`,
+    padding: "0",
+    backgroundColor: "#F74D4D",
   },
 }));
 
@@ -24,14 +26,9 @@ function Navbar({ navRole, home }: { navRole: any[]; home: string }) {
           </Link>
         </div>
         <div className="flex gap-6">
-          <IconButton aria-label="cart">
-            <StyledBadge badgeContent={4} color="secondary">
-              <ShoppingCartIcon color="primary" />
-            </StyledBadge>
-          </IconButton>
           {navRole.map(({ name, path }: { name: string; path: string }) => {
             return (
-              <NavLink to={path}>
+              <NavLink to={path} key={path}>
                 {({ isActive }) => (
                   <p
                     className={`text-lg font-semibold ${isActive ? "text-red" : ""}`}
@@ -44,8 +41,25 @@ function Navbar({ navRole, home }: { navRole: any[]; home: string }) {
           })}
 
           <Link to="/login">
-            <p className="text-lg font-semibold">Logout</p>
+            <p
+              className="text-lg font-semibold"
+              onClick={() => {
+                Cookies.remove("token");
+              }}
+            >
+              Logout
+            </p>
           </Link>
+        </div>
+        <div>
+          <IconButton aria-label="cart">
+            <StyledBadge badgeContent={4} color="success">
+              <ShoppingCartOutlinedIcon
+                fontSize="medium"
+                className="h-8 text-white"
+              />
+            </StyledBadge>
+          </IconButton>
         </div>
       </div>
     </div>

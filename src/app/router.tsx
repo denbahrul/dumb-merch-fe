@@ -12,8 +12,15 @@ import CategoryListPage from "./routes/admin/category-list";
 import ProductListPage from "./routes/admin/product-list";
 import EditProductPage from "./routes/admin/edit-product";
 import EditCategoryPage from "./routes/admin/edit-category";
+import { useAppDispatch } from "@/features/complain/hooks/use-store";
+import { useEffect } from "react";
+import { getUserLogged } from "@/stores/auth/async";
 
 export default function RouterApp() {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getUserLogged());
+  }, []);
   const router = createBrowserRouter([
     {
       element: <AuthLayout />,
