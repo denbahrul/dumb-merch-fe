@@ -16,6 +16,7 @@ const productSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    //get product
     builder.addCase(getProduct.fulfilled, (state, action) => {
       state.entities = action.payload;
       state.loading = "succeeded";
@@ -26,6 +27,8 @@ const productSlice = createSlice({
     builder.addCase(getProduct.rejected, (state) => {
       state.loading = "failed";
     });
+
+    //delete product
     builder.addCase(deleteProduct.fulfilled, (state, action) => {
       state.entities = state.entities?.filter(
         (product) => product.id !== action.payload,

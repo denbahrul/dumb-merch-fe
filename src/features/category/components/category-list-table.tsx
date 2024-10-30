@@ -3,7 +3,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "@/features/complain/hooks/use-store";
-import { getCategory } from "@/stores/category/async";
+import { deleteCategory, getCategory } from "@/stores/category/async";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
@@ -26,6 +26,10 @@ export default function CategoryListTable() {
     navigate(`/admin/edit-category/${id}`);
   }
 
+  function onDelete(id: number) {
+    dispatch(deleteCategory(id));
+  }
+
   if (loading === "pending") {
     return <p>Loading</p>;
   }
@@ -38,17 +42,21 @@ export default function CategoryListTable() {
       >
         <TableHead>
           <TableRow>
-            <StyledTableCell align="center">No</StyledTableCell>
-            <StyledTableCell align="center">Category Name</StyledTableCell>
+            <StyledTableCell align="left">No</StyledTableCell>
+            <StyledTableCell align="left">Category Name</StyledTableCell>
+            <StyledTableCell align="left">Total Product</StyledTableCell>
             <StyledTableCell align="center">Action</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {categories!.map((category) => (
             <StyledTableRow key={category.id}>
-              <StyledTableCell align="center">{category.id}</StyledTableCell>
-              <StyledTableCell align="center">
+              <StyledTableCell align="left">{category.id}</StyledTableCell>
+              <StyledTableCell align="left">
                 {category.categoryName}
+              </StyledTableCell>
+              <StyledTableCell align="left">
+                {category.product.length}
               </StyledTableCell>
               <StyledTableCell align="center">
                 <div className="flex h-10 w-full items-center justify-center gap-2">
@@ -60,7 +68,12 @@ export default function CategoryListTable() {
                   >
                     Edit
                   </button>
-                  <button className="w-20 rounded-md bg-red py-2">
+                  <button
+                    className="w-20 rounded-md bg-red py-2"
+                    onClick={() => {
+                      onDelete(category.id);
+                    }}
+                  >
                     Delete
                   </button>
                 </div>
