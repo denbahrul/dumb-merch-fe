@@ -32,7 +32,7 @@ export default function ProductDetail() {
         <p className="text-end text-xl font-semibold text-red md:text-2xl">
           Rp. 5.000.000
         </p>
-        <Button title="Buy" color="red" h="10" />
+        <Button otherStyle="mt-5" title="Buy" color="red" h="10" />
       </div>
     </div>
   );

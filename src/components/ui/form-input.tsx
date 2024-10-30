@@ -7,7 +7,7 @@ const FormInput = forwardRef<HTMLInputElement, InputProps>(
     return (
       <input
         ref={ref}
-        className="h-12 rounded-lg border-[1px] border-border-primary bg-background-teritery p-5"
+        className="h-12 w-full rounded-lg border-[1px] border-border-primary bg-background-teritery p-5"
         {...props}
       />
     );

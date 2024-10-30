@@ -19,7 +19,6 @@ export const getUserLogged = createAsyncThunk<AuthDTO, undefined>(
 
       return res.data;
     } catch (error) {
-      console.log(error);
       if (error instanceof Error) {
         return thunkAPI.rejectWithValue(error.message);
       }

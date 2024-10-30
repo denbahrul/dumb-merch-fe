@@ -20,7 +20,13 @@ export default function Login() {
       {errors.password && (
         <p className="text-rose-600">* {errors.password.message}</p>
       )}
-      <Button type="submit" title="Login" color="red" h="12" />
+      <Button
+        otherStyle="mt-5"
+        type="submit"
+        title="Login"
+        color="red"
+        h="12"
+      />
     </form>
   );
 }

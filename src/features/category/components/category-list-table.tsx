@@ -38,7 +38,7 @@ export default function CategoryListTable() {
       >
         <TableHead>
           <TableRow>
-            <StyledTableCell align="left">No</StyledTableCell>
+            <StyledTableCell align="center">No</StyledTableCell>
             <StyledTableCell align="center">Category Name</StyledTableCell>
             <StyledTableCell align="center">Action</StyledTableCell>
           </TableRow>
@@ -46,11 +46,11 @@ export default function CategoryListTable() {
         <TableBody>
           {categories!.map((category) => (
             <StyledTableRow key={category.id}>
-              <StyledTableCell align="left">{category.id}</StyledTableCell>
+              <StyledTableCell align="center">{category.id}</StyledTableCell>
               <StyledTableCell align="center">
                 {category.categoryName}
               </StyledTableCell>
-              <StyledTableCell align="left">
+              <StyledTableCell align="center">
                 <div className="flex h-10 w-full items-center justify-center gap-2">
                   <button
                     className="w-20 rounded-md bg-green py-2"

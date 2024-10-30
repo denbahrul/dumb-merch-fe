@@ -4,11 +4,21 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
   h: "12" | "10";
   color: "red" | "green";
+  otherStyle: string;
 }
 
-export default function Button({ title, color, h, ...props }: ButtonProps) {
+export default function Button({
+  title,
+  color,
+  h,
+  otherStyle,
+  ...props
+}: ButtonProps) {
   return (
-    <button className={`mt-5 h-${h} w-full rounded-lg bg-${color}`} {...props}>
+    <button
+      className={`h-${h} ${otherStyle} rounded-lg px-6 bg-${color}`}
+      {...props}
+    >
       {title}
     </button>
   );

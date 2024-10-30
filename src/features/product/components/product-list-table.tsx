@@ -3,7 +3,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "@/features/complain/hooks/use-store";
-import { getProduct } from "@/stores/product/async";
+import { deleteProduct, getProduct } from "@/stores/product/async";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
@@ -26,9 +26,14 @@ export default function ProductListTable() {
     navigate(`/admin/edit-product/${id}`);
   }
 
+  function onDelete(id: number) {
+    dispatch(deleteProduct(id));
+  }
+
   if (loading === "pending") {
     return <p>Loading</p>;
   }
+
   return (
     <TableContainer className="rounded-md text-white">
       <Table
@@ -81,7 +86,12 @@ export default function ProductListTable() {
                   >
                     Edit
                   </button>
-                  <button className="w-20 rounded-md bg-red py-2">
+                  <button
+                    className="w-20 rounded-md bg-red py-2"
+                    onClick={() => {
+                      onDelete(product.id);
+                    }}
+                  >
                     Delete
                   </button>
                 </div>
