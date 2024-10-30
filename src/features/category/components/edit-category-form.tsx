@@ -7,7 +7,7 @@ export default function EditCategoryForm() {
       <form className="mb-10 flex flex-col gap-6">
         <FormInput placeholder="Mouse" type="text" />
       </form>
-      <Button otherStyle="" title="Save" color="green" h="12" />
+      <Button otherStyle="w-full" title="Save" color="green" h="12" />
     </div>
   );
 }

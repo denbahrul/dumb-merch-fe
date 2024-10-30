@@ -1,6 +1,6 @@
 import { ICategory } from "@/types/categoty";
 import { createSlice } from "@reduxjs/toolkit";
-import { deleteCategory, getCategory } from "./async";
+import { createCategory, deleteCategory, getCategory } from "./async";
 
 interface CategoryState {
   entities?: ICategory[];
@@ -25,6 +25,18 @@ const categorySlice = createSlice({
       state.loading = "pending";
     });
     builder.addCase(getCategory.rejected, (state) => {
+      state.loading = "failed";
+    });
+
+    //create category
+    builder.addCase(createCategory.fulfilled, (state, action) => {
+      state.entities = [...(state.entities || []), action.payload];
+      state.loading = "succeeded";
+    });
+    builder.addCase(createCategory.pending, (state) => {
+      state.loading = "pending";
+    });
+    builder.addCase(createCategory.rejected, (state) => {
       state.loading = "failed";
     });
 

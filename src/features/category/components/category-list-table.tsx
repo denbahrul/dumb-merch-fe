@@ -26,7 +26,7 @@ export default function CategoryListTable() {
     navigate(`/admin/edit-category/${id}`);
   }
 
-  function onDelete(id: number) {
+  async function onDelete(id: number) {
     dispatch(deleteCategory(id));
   }
 
@@ -56,7 +56,7 @@ export default function CategoryListTable() {
                 {category.categoryName}
               </StyledTableCell>
               <StyledTableCell align="left">
-                {category.product.length}
+                {category._count?.product ?? 0}
               </StyledTableCell>
               <StyledTableCell align="center">
                 <div className="flex h-10 w-full items-center justify-center gap-2">

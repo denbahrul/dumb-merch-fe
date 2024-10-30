@@ -15,6 +15,8 @@ import EditCategoryPage from "./routes/admin/edit-category";
 import { useAppDispatch } from "@/features/complain/hooks/use-store";
 import { useEffect } from "react";
 import { getUserLogged } from "@/stores/auth/async";
+import AddCategoryPage from "./routes/admin/add-category";
+import AddProductPage from "./routes/admin/add-product";
 
 export default function RouterApp() {
   const dispatch = useAppDispatch();
@@ -75,6 +77,14 @@ export default function RouterApp() {
         {
           path: "product",
           element: <ProductListPage />,
+        },
+        {
+          path: "add-category",
+          element: <AddCategoryPage />,
+        },
+        {
+          path: "add-product",
+          element: <AddProductPage />,
         },
         {
           path: "edit-category/:id",

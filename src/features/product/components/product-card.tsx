@@ -13,7 +13,9 @@ export default function ProductCard({
       <div className="w-[100%] rounded-lg bg-background-quaternary p-2">
         <div className="h-[312px] w-full overflow-hidden rounded-md">
           <img
-            src={productImage[0].url}
+            src={
+              productImage.length !== 0 ? productImage[0].url : "/dm-logo.svg"
+            }
             alt="product photo"
             className="h-full w-full object-cover"
           />

@@ -25,7 +25,7 @@ export default function EditProductForm() {
         <FormInput placeholder="price" type="text" />
         <FormInput placeholder="stock" type="text" />
       </form>
-      <Button title="Save" color="green" otherStyle="w-full" h="12" />
+      <Button title="Create" color="green" otherStyle="w-full" h="12" />
     </div>
   );
 }

@@ -2,7 +2,6 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "@/features/complain/hooks/use-store";
-import { ProductData } from "../../../dummy/product";
 import ProductCard from "./product-card";
 import { useEffect } from "react";
 import { getProduct } from "@/stores/product/async";
