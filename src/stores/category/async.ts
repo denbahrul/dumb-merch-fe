@@ -1,6 +1,9 @@
 import { apiV1 } from "@/libs/api";
 import { ICategory } from "@/types/categoty";
-import { CreateCategoryDTO } from "@/validation/categorySchema";
+import {
+  CreateCategoryDTO,
+  UpdateCategoryDTO,
+} from "@/validation/categorySchema";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Swal from "sweetalert2";
 
@@ -58,6 +61,38 @@ export const createCategory = createAsyncThunk<ICategory, CreateCategoryDTO>(
     }
   },
 );
+
+export const updateCategory = createAsyncThunk<
+  ICategory,
+  { data: UpdateCategoryDTO; categoryId: number }
+>("category/updateCategory", async ({ data, categoryId }, thunkAPI) => {
+  try {
+    const res = await apiV1.patch(`/category/update/${categoryId}`, data);
+    Swal.fire({
+      icon: "success",
+      title: res.data.message,
+      showConfirmButton: false,
+      background: "#181818",
+      color: "#fff",
+      iconColor: "#04A51E",
+      timer: 1500,
+    });
+    return res.data.data;
+  } catch (error) {
+    console.log(error);
+    if (error instanceof Error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops..",
+        text: `${error.message}`,
+        background: "#181818",
+        color: "#fff",
+      });
+
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+});
 
 export const deleteCategory = createAsyncThunk(
   "category/deleteCategory",
