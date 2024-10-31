@@ -3,7 +3,7 @@ import FormInput from "@/components/ui/form-input";
 import {
   CreateCategoryDTO,
   createCategorySchema,
-} from "@/features/auth/validations/categorySchema";
+} from "@/validation/categorySchema";
 import { useAppDispatch } from "@/features/complain/hooks/use-store";
 import { createCategory } from "@/stores/category/async";
 import { zodResolver } from "@hookform/resolvers/zod";

@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 import {
   RegisterFormInput,
   registerSchema,
-} from "../validations/registerSchema";
+} from "../../../validation/registerSchema";
 
 export function useRegisterForm() {
   const dispatch = useAppDispatch();

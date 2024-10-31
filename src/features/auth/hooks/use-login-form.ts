@@ -6,7 +6,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { LoginFormInput, loginSchema } from "../validations/loginSchema";
+import { LoginFormInput, loginSchema } from "../../../validation/loginSchema";
 
 export function useLoginForm() {
   const {

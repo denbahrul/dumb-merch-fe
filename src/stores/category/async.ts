@@ -1,4 +1,4 @@
-import { CreateCategoryDTO } from "@/features/auth/validations/categorySchema";
+import { CreateCategoryDTO } from "@/validation/categorySchema";
 import { apiV1 } from "@/libs/api";
 import { ICategory } from "@/types/categoty";
 import { createAsyncThunk } from "@reduxjs/toolkit";

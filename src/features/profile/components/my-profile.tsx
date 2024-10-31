@@ -1,28 +1,62 @@
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/features/complain/hooks/use-store";
+import { getProfile } from "@/stores/profile/async";
+import { useEffect, useState } from "react";
+import { CiEdit } from "react-icons/ci";
 import PageTitle from "../../../components/ui/page-title";
+import ProfileModal from "./profile-modal";
 import ProfileDetail from "./ui/profile-detail";
 
 export default function MyProfile() {
+  const dispatch = useAppDispatch();
+  const { entities, loading } = useAppSelector((state) => state.profile);
+  const profile = entities;
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    dispatch(getProfile());
+  }, []);
+
+  if (loading === "pending") {
+    return <p>Loading</p>;
+  }
+
   return (
     <div className="col-span-3">
-      <PageTitle title="My Profile" />
+      <div className="flex items-center gap-4">
+        <PageTitle title="My Profile" />
+        <div
+          className="mb-6 flex cursor-pointer items-center gap-1"
+          onClick={handleOpen}
+        >
+          <CiEdit size={20} />
+          <p className="text-lg">Edit profile</p>
+        </div>
+      </div>
       <div className="gap-8 md:flex">
         <img
-          src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          // src="https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          src={profile?.profilePhoto}
           alt="Profile Photo"
           className="m-auto h-64 w-64 rounded-full object-cover md:min-h-[480px] md:min-w-[50%] md:rounded-md"
         />
-        <div className="mt-4 flex flex-col gap-8 md:mt-0">
-          <ProfileDetail title="Name" content="Yosep Muhammad" />
-          <ProfileDetail title="Email" content="yosepgans@gmail.com" />
-          <ProfileDetail title="Phone" content="083896833122" />
-          <ProfileDetail title="Gender" content="Male" />
+        <div className="mt-4 flex w-full flex-col gap-6 md:mt-0">
+          <ProfileDetail title="Name" content={profile!.fullName} />
           <ProfileDetail
-            title="Address"
-            content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's"
+            title="Username"
+            content={`@${profile!.user?.username}`}
           />
+          <ProfileDetail title="Email" content={profile!.user?.email} />
+          <ProfileDetail title="Phone" content={profile!.phone!} />
+          <ProfileDetail title="Gender" content={profile?.gender ?? "-"} />
+          <ProfileDetail title="Address" content={profile!.address!} />
         </div>
       </div>
+
+      <ProfileModal handleClose={handleClose} open={open} />
     </div>
   );
 }

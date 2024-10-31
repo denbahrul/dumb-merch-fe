@@ -9,11 +9,15 @@ export interface UserEntity {
 
 export interface ProfileEntity {
   id: number;
-  name: string;
-  profilePhoto: string;
-  phone: string;
-  gender: genderEnum;
-  address: string;
+  fullName: string;
+  profilePhoto?: string;
+  phone?: string;
+  gender?: genderEnum;
+  address?: string;
+  user: {
+    username: string;
+    email: string;
+  };
 }
 
 export enum roleEnum {
@@ -22,6 +26,6 @@ export enum roleEnum {
 }
 
 export enum genderEnum {
-  Male,
-  Female,
+  Male = "Male",
+  Female = "Female",
 }
