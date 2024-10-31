@@ -47,9 +47,6 @@ const categorySlice = createSlice({
       );
       state.loading = "succeeded";
     });
-    builder.addCase(deleteCategory.pending, (state) => {
-      state.loading = "pending";
-    });
     builder.addCase(deleteCategory.rejected, (state) => {
       state.loading = "failed";
     });

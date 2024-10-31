@@ -22,7 +22,7 @@ export default function AddCategoryForm() {
   });
 
   async function onSubmit(data: CreateCategoryDTO) {
-    dispatch(createCategory(data));
+    await dispatch(createCategory(data)).unwrap();
     navigate("/admin/category");
   }
   return (

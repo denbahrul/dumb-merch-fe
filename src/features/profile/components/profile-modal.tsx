@@ -71,8 +71,9 @@ export default function ProfileModal({
                       watch("profilePhoto")[0] instanceof File
                         ? URL.createObjectURL(watch("profilePhoto")[0] as Blob)
                         : profile?.profilePhoto
+                          ? profile?.profilePhoto
+                          : "https://i.pinimg.com/564x/6d/ff/25/6dff25c17a32509c01e8e3dac9a4ec4b.jpg"
                     }
-                    // {profile?.profilePhoto}
                     alt="Profile Photo"
                     className="m-auto h-32 w-32 rounded-full object-cover md:h-64 md:w-64 md:rounded-lg"
                   />
@@ -81,7 +82,7 @@ export default function ProfileModal({
                     htmlFor="imageProfile"
                   >
                     <CiEdit size={16} />
-                    <p>edit image</p>
+                    <p>edit photo</p>
                   </label>
                 </div>
                 <div className="mt-8 flex flex-col gap-4 md:mt-0 md:w-[60%]">

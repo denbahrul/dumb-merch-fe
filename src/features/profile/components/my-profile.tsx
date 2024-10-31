@@ -39,7 +39,10 @@ export default function MyProfile() {
       </div>
       <div className="gap-8 md:flex">
         <img
-          src={profile?.profilePhoto}
+          src={
+            profile?.profilePhoto ??
+            "https://i.pinimg.com/564x/6d/ff/25/6dff25c17a32509c01e8e3dac9a4ec4b.jpg"
+          }
           alt="Profile Photo"
           className="m-auto h-64 w-64 rounded-full object-cover md:min-h-[480px] md:min-w-[50%] md:rounded-md"
         />
@@ -50,9 +53,9 @@ export default function MyProfile() {
             content={`@${profile!.user?.username}`}
           />
           <ProfileDetail title="Email" content={profile!.user?.email} />
-          <ProfileDetail title="Phone" content={profile!.phone!} />
+          <ProfileDetail title="Phone" content={profile!.phone! ?? "-"} />
           <ProfileDetail title="Gender" content={profile?.gender ?? "-"} />
-          <ProfileDetail title="Address" content={profile!.address!} />
+          <ProfileDetail title="Address" content={profile!.address! ?? "-"} />
         </div>
       </div>
 

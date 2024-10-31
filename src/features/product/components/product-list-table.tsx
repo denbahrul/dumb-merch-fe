@@ -56,13 +56,13 @@ export default function ProductListTable() {
             <StyledTableRow key={product.id}>
               <StyledTableCell align="left">{product.id}</StyledTableCell>
               <StyledTableCell align="left">
-                <div className="grid w-24 grid-cols-2 gap-1">
-                  {product.productImage.map((image) => {
+                <div className="grid w-28 grid-cols-2 gap-1">
+                  {product.productImage?.map((image) => {
                     return (
                       <img
                         src={image.url}
                         alt="product photo"
-                        className="h-full w-full rounded-sm object-cover"
+                        className="h-10 w-24 rounded-sm object-cover"
                       />
                     );
                   })}
