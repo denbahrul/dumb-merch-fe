@@ -13,8 +13,6 @@ export default function ProductDetail() {
   const product = useAppSelector((state) => state.product.currentProduct);
   const loading = useAppSelector((state) => state.product.loading);
 
-  console.log("wkwkwkkw", product);
-
   useEffect(() => {
     dispatch(getProductById(+id!));
   }, [id]);

@@ -72,7 +72,9 @@ export default function ProductListTable() {
                 {product.productName}
               </StyledTableCell>
               <StyledTableCell align="left">
-                {product.description}
+                <div className="line-clamp-3 max-w-52">
+                  {product.description}
+                </div>
               </StyledTableCell>
               <StyledTableCell align="left">{product.price}</StyledTableCell>
               <StyledTableCell align="left">{product.quantity}</StyledTableCell>

@@ -11,7 +11,7 @@ import {
 } from "@/validation/productSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { updateProduct } from "@/stores/product/async";
+import { getProductById, updateProduct } from "@/stores/product/async";
 import { useEffect } from "react";
 import { getCategory } from "@/stores/category/async";
 
@@ -19,23 +19,43 @@ export default function EditProductForm() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { id } = useParams();
+  const product = useAppSelector((state) => state.product.currentProduct);
+  const loading = useAppSelector((state) => state.product.loading);
   const categories = useAppSelector((state) => state.category.entities);
   const {
     register,
     handleSubmit,
     // watch,
     formState: { errors },
+    reset,
   } = useForm<UpdateProductDTO>({
     resolver: zodResolver(updateProductSchema),
   });
 
   useEffect(() => {
     dispatch(getCategory());
+    dispatch(getProductById(+id!));
   }, []);
+
+  useEffect(() => {
+    if (product) {
+      reset({
+        productName: product.productName,
+        description: product.description,
+        price: +product.price,
+        quantity: product.quantity,
+        categoryId: product.categoryId,
+      });
+    }
+  }, [product, reset]);
 
   async function onSubmit(data: UpdateProductDTO) {
     await dispatch(updateProduct({ data, productId: +id! })).unwrap();
     navigate("/admin/product");
+  }
+
+  if (loading === "pending") {
+    return <p>Loading</p>;
   }
 
   return (
