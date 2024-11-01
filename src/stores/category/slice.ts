@@ -4,16 +4,19 @@ import {
   createCategory,
   deleteCategory,
   getCategory,
+  getCategoryById,
   updateCategory,
 } from "./async";
 
 interface CategoryState {
   entities?: ICategory[];
+  currentCategory?: ICategory | null;
   loading: "idle" | "pending" | "succeeded" | "failed";
 }
 
 const initialState: CategoryState = {
   entities: [],
+  currentCategory: null,
   loading: "idle",
 };
 const categorySlice = createSlice({
@@ -30,6 +33,19 @@ const categorySlice = createSlice({
       state.loading = "pending";
     });
     builder.addCase(getCategory.rejected, (state) => {
+      state.loading = "failed";
+    });
+
+    //get category by id
+    builder.addCase(getCategoryById.fulfilled, (state, action) => {
+      state.currentCategory = action.payload;
+      state.loading = "succeeded";
+    });
+    builder.addCase(getCategoryById.pending, (state) => {
+      state.loading = "pending";
+    });
+    builder.addCase(getCategoryById.rejected, (state) => {
+      state.currentCategory = null;
       state.loading = "failed";
     });
 

@@ -11,25 +11,34 @@ import {
   updateCategorySchema,
 } from "@/validation/categorySchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { updateCategory } from "@/stores/category/async";
+import { getCategoryById, updateCategory } from "@/stores/category/async";
+import { useEffect } from "react";
 
 export default function EditCategoryForm() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { id } = useParams();
-  const category = useAppSelector((state) =>
-    state.category.entities?.filter((category) => category.id == +id!),
-  );
-
-  console.log("xxx", category);
-
+  const category = useAppSelector((state) => state.category.currentCategory);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<UpdateCategoryDTO>({
     resolver: zodResolver(updateCategorySchema),
   });
+
+  useEffect(() => {
+    dispatch(getCategoryById(+id!));
+  }, [id]);
+
+  useEffect(() => {
+    if (category) {
+      reset({
+        categoryName: category.categoryName,
+      });
+    }
+  }, [category, reset]);
 
   async function onSubmit(data: UpdateCategoryDTO) {
     await dispatch(updateCategory({ data, categoryId: +id! })).unwrap();

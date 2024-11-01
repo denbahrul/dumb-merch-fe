@@ -17,7 +17,7 @@ export const updateProductSchema = z.object({
   price: z.number().positive(),
   quantity: z.number(),
   categoryId: z.number(),
-  // productImage: z.any(),
+  productImage: z.any(),
 });
 
 export type UpdateProductDTO = z.infer<typeof updateProductSchema>;

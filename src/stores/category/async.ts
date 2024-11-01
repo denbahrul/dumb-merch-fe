@@ -30,6 +30,22 @@ export const getCategory = createAsyncThunk<ICategory[], undefined>(
   },
 );
 
+export const getCategoryById = createAsyncThunk(
+  "category/getCategoryById",
+  async (categoryId: number, thunkAPI) => {
+    try {
+      const res = await apiV1.get(`/category/${categoryId}`);
+
+      return res.data.data;
+    } catch (error) {
+      console.log(error);
+      if (error instanceof Error) {
+        return thunkAPI.rejectWithValue(error.message);
+      }
+    }
+  },
+);
+
 export const createCategory = createAsyncThunk<ICategory, CreateCategoryDTO>(
   "category/createeCategory",
   async (data, thunkAPI) => {

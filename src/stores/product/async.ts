@@ -83,7 +83,17 @@ export const updateProduct = createAsyncThunk<
   { data: UpdateProductDTO; productId: number }
 >("product/updateProduct", async ({ data, productId }, thunkAPI) => {
   try {
-    const res = await apiV1.patch(`/product/update/${productId}`, data);
+    const formData = new FormData();
+    Object.entries(data).forEach(([key, value]) => {
+      if (key === "productImage" && value instanceof FileList) {
+        Array.from(value).forEach((file) => {
+          formData.append("productImage", file);
+        });
+      } else if (key !== "productImage") {
+        formData.append(key, value);
+      }
+    });
+    const res = await apiV1.patch(`/product/update/${productId}`, formData);
     Swal.fire({
       icon: "success",
       title: res.data.message,

@@ -57,7 +57,7 @@ export default function AddProductForm() {
                   key={index}
                   src={URL.createObjectURL(image as Blob)}
                   alt="product photo"
-                  className="h-28 w-full rounded-sm object-cover"
+                  className="h-28 w-full rounded-md object-cover"
                 />
               ))}
           </div>

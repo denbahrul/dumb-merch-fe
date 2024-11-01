@@ -14,18 +14,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { getProductById, updateProduct } from "@/stores/product/async";
 import { useEffect } from "react";
 import { getCategory } from "@/stores/category/async";
+import { AiOutlineDelete } from "react-icons/ai";
+import { apiV1 } from "@/libs/api";
+import Swal from "sweetalert2";
 
 export default function EditProductForm() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const product = useAppSelector((state) => state.product.currentProduct);
-  const loading = useAppSelector((state) => state.product.loading);
   const categories = useAppSelector((state) => state.category.entities);
   const {
     register,
     handleSubmit,
-    // watch,
+    watch,
     formState: { errors },
     reset,
   } = useForm<UpdateProductDTO>({
@@ -49,13 +51,35 @@ export default function EditProductForm() {
     }
   }, [product, reset]);
 
+  async function onDelete(id: number) {
+    try {
+      const res = await apiV1.delete(`/product/image/delete/${id}`);
+      Swal.fire({
+        icon: "success",
+        title: res.data.message,
+        showConfirmButton: false,
+        background: "#1D1D1D",
+        color: "#fff",
+        iconColor: "#04A51E",
+        timer: 1500,
+      });
+      dispatch(getProductById(+id!));
+    } catch (error) {
+      if (error instanceof Error) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops..",
+          text: `${error.message}`,
+          background: "#181818",
+          color: "#fff",
+        });
+      }
+    }
+  }
+
   async function onSubmit(data: UpdateProductDTO) {
     await dispatch(updateProduct({ data, productId: +id! })).unwrap();
     navigate("/admin/product");
-  }
-
-  if (loading === "pending") {
-    return <p>Loading</p>;
   }
 
   return (
@@ -64,32 +88,54 @@ export default function EditProductForm() {
         className="mb-10 flex flex-col gap-6"
         onSubmit={handleSubmit(onSubmit)}
       >
-        {/* <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4">
           <label
             htmlFor="image"
             className={`mt-5 w-fit cursor-pointer rounded-lg bg-red px-6 py-2`}
           >
-            Upload Image
+            Add new image
           </label>
           <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
             {watch("productImage") &&
               Array.from(watch("productImage")).map((image, index) => (
                 <img
                   key={index}
-                  src={URL.updateObjectURL(image as Blob)}
+                  src={URL.createObjectURL(image as Blob)}
                   alt="product photo"
-                  className="h-28 w-full rounded-sm object-cover"
+                  className="h-28 w-full rounded-md object-cover"
                 />
               ))}
           </div>
-        </div> */}
-        {/* <input
+          <p className="text-lg">Product image</p>
+          <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
+            {product?.productImage.map((image) => {
+              return (
+                <div>
+                  <img
+                    key={image.id}
+                    src={image.url}
+                    alt="product photo"
+                    className="h-28 w-full rounded-md object-cover"
+                  />
+                  <div
+                    onClick={() => onDelete(image.id)}
+                    className="mt-2 flex items-center justify-center gap-1"
+                  >
+                    <AiOutlineDelete color="#F74D4D" />
+                    <p className="text-center text-sm text-red">delete</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <input
           {...register("productImage")}
           multiple
           id="image"
           type="file"
           hidden
-        /> */}
+        />
         <FormInput
           {...register("productName")}
           placeholder="product name"
