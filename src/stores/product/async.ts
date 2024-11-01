@@ -1,6 +1,6 @@
 import { apiV1 } from "@/libs/api";
 import { IProduct } from "@/types/product";
-import { CreateProductDTO } from "@/validation/productSchema";
+import { CreateProductDTO, UpdateProductDTO } from "@/validation/productSchema";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Swal from "sweetalert2";
 
@@ -9,6 +9,22 @@ export const getProduct = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const res = await apiV1.get("/product");
+
+      return res.data.data;
+    } catch (error) {
+      console.log(error);
+      if (error instanceof Error) {
+        return thunkAPI.rejectWithValue(error.message);
+      }
+    }
+  },
+);
+
+export const getProductById = createAsyncThunk(
+  "product/getProductById",
+  async (productId: number, thunkAPI) => {
+    try {
+      const res = await apiV1.get(`/product/${productId}`);
 
       return res.data.data;
     } catch (error) {
@@ -61,6 +77,38 @@ export const createProduct = createAsyncThunk<IProduct, CreateProductDTO>(
     }
   },
 );
+
+export const updateProduct = createAsyncThunk<
+  IProduct,
+  { data: UpdateProductDTO; productId: number }
+>("product/updateProduct", async ({ data, productId }, thunkAPI) => {
+  try {
+    const res = await apiV1.patch(`/product/update/${productId}`, data);
+    Swal.fire({
+      icon: "success",
+      title: res.data.message,
+      showConfirmButton: false,
+      background: "#181818",
+      color: "#fff",
+      iconColor: "#04A51E",
+      timer: 1500,
+    });
+    return res.data.product;
+  } catch (error) {
+    console.log(error);
+    if (error instanceof Error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops..",
+        text: `${error.message}`,
+        background: "#181818",
+        color: "#fff",
+      });
+
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+});
 
 export const deleteProduct = createAsyncThunk(
   "product/deleteProduct",

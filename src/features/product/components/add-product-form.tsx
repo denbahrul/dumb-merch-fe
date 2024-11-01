@@ -28,8 +28,6 @@ export default function AddProductForm() {
     resolver: zodResolver(createProductSchema),
   });
 
-  console.log("-=========", watch("productImage"));
-
   useEffect(() => {
     dispatch(getCategory());
   }, []);
