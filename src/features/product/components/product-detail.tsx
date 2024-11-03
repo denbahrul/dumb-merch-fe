@@ -6,14 +6,16 @@ import Button from "../../../components/ui/button";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProductById } from "@/stores/product/async";
+import { addItemToCart } from "@/stores/cart/async";
 
 export default function ProductDetail() {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const product = useAppSelector((state) => state.product.currentProduct);
   const loading = useAppSelector((state) => state.product.loading);
+  const [quantity, setQuantity] = useState<number>(1);
   const [productImage, setProductImage] = useState(
-    product?.productImage[0].url || "/dm-logo.svg",
+    product?.productImage[0]?.url || "/dm-logo.svg",
   );
 
   useEffect(() => {
@@ -21,10 +23,16 @@ export default function ProductDetail() {
   }, [id]);
 
   useEffect(() => {
-    if (product?.productImage[0].url) {
-      setProductImage(product?.productImage[0].url);
+    if (product?.productImage[0]?.url) {
+      setProductImage(product?.productImage[0]?.url);
+    } else {
+      setProductImage("/dm-logo.svg");
     }
   }, [product]);
+
+  async function onClick() {
+    await dispatch(addItemToCart({ productId: +id!, quantity }));
+  }
 
   if (loading === "pending") {
     return <p>Loading</p>;
@@ -42,10 +50,10 @@ export default function ProductDetail() {
           {product?.productImage.map((image) => {
             return (
               <img
-                src={image.url}
+                src={image?.url}
                 alt="Product Photo"
                 className="h-24 w-32 cursor-pointer rounded-lg object-cover"
-                onClick={() => setProductImage(image.url)}
+                onClick={() => setProductImage(image?.url)}
               />
             );
           })}
@@ -62,7 +70,13 @@ export default function ProductDetail() {
         <p className="text-end text-xl font-semibold text-red md:text-2xl">
           Rp. {product?.price}
         </p>
-        <Button otherStyle="mt-5" title="Buy" color="red" h="10" />
+        <Button
+          otherStyle="mt-5"
+          title="Add to cart"
+          color="red"
+          h="10"
+          onClick={onClick}
+        />
       </div>
     </div>
   );

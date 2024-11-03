@@ -20,9 +20,10 @@ interface INavbar {
   navRole: any[];
   home: string;
   role: "ADMIN" | "CUSTOMER";
+  chartItemNumber?: number;
 }
 
-function Navbar({ navRole, home, role }: INavbar) {
+function Navbar({ navRole, home, role, chartItemNumber }: INavbar) {
   return (
     <div className="fixed m-auto w-[100%] bg-background-primary">
       <div className="m-auto flex max-w-[1280px] items-center justify-between px-8 py-4">
@@ -61,7 +62,7 @@ function Navbar({ navRole, home, role }: INavbar) {
           <Link to={"/cart"}>
             <div>
               <IconButton aria-label="cart">
-                <StyledBadge badgeContent={4} color="success">
+                <StyledBadge badgeContent={chartItemNumber} color="success">
                   <ShoppingCartOutlinedIcon
                     fontSize="medium"
                     className="h-8 text-white"
