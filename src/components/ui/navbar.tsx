@@ -16,7 +16,13 @@ const StyledBadge = styled(Badge)<BadgeProps>(() => ({
   },
 }));
 
-function Navbar({ navRole, home }: { navRole: any[]; home: string }) {
+interface INavbar {
+  navRole: any[];
+  home: string;
+  role: "ADMIN" | "CUSTOMER";
+}
+
+function Navbar({ navRole, home, role }: INavbar) {
   return (
     <div className="fixed m-auto w-[100%] bg-background-primary">
       <div className="m-auto flex max-w-[1280px] items-center justify-between px-8 py-4">
@@ -51,16 +57,20 @@ function Navbar({ navRole, home }: { navRole: any[]; home: string }) {
             </p>
           </Link>
         </div>
-        <div>
-          <IconButton aria-label="cart">
-            <StyledBadge badgeContent={4} color="success">
-              <ShoppingCartOutlinedIcon
-                fontSize="medium"
-                className="h-8 text-white"
-              />
-            </StyledBadge>
-          </IconButton>
-        </div>
+        {role === "CUSTOMER" ? (
+          <Link to={"/cart"}>
+            <div>
+              <IconButton aria-label="cart">
+                <StyledBadge badgeContent={4} color="success">
+                  <ShoppingCartOutlinedIcon
+                    fontSize="medium"
+                    className="h-8 text-white"
+                  />
+                </StyledBadge>
+              </IconButton>
+            </div>
+          </Link>
+        ) : null}
       </div>
     </div>
   );

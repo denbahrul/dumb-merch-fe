@@ -1,4 +1,4 @@
-import ProductDetail from "../../../features/detail/components/product-detail";
+import ProductDetail from "../../../features/product/components/product-detail";
 
 export default function ProductDetailPage() {
   return (

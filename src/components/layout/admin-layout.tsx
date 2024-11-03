@@ -16,7 +16,7 @@ export default function AdminLayout() {
   } else if (auth?.role === roleEnum.ADMIN) {
     return (
       <div>
-        <Navbar navRole={adminNav} home="admin/home" />
+        <Navbar role="ADMIN" navRole={adminNav} home="admin/home" />
         <div className="m-auto h-[100vh] max-w-[1280px]">
           <div className="h-[100%] pt-20">
             <Outlet />

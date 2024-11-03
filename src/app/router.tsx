@@ -17,6 +17,7 @@ import { useEffect } from "react";
 import { getUserLogged } from "@/stores/auth/async";
 import AddCategoryPage from "./routes/admin/add-category";
 import AddProductPage from "./routes/admin/add-product";
+import CartPage from "./routes/customer/cart";
 
 export default function RouterApp() {
   const dispatch = useAppDispatch();
@@ -55,6 +56,10 @@ export default function RouterApp() {
         {
           path: "/product/:id",
           element: <ProductDetailPage />,
+        },
+        {
+          path: "/cart",
+          element: <CartPage />,
         },
       ],
     },

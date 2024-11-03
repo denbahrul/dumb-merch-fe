@@ -18,7 +18,7 @@ export default function UserLayout() {
 
   return (
     <div>
-      <Navbar navRole={userNav} home="" />
+      <Navbar role="CUSTOMER" navRole={userNav} home="" />
       <div className="m-auto h-[100vh] max-w-[1280px]">
         <div className="h-[100%] pt-20">
           <Outlet />

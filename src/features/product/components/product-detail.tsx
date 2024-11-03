@@ -3,7 +3,7 @@ import {
   useAppSelector,
 } from "@/features/complain/hooks/use-store";
 import Button from "../../../components/ui/button";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProductById } from "@/stores/product/async";
 
@@ -12,10 +12,19 @@ export default function ProductDetail() {
   const { id } = useParams();
   const product = useAppSelector((state) => state.product.currentProduct);
   const loading = useAppSelector((state) => state.product.loading);
+  const [productImage, setProductImage] = useState(
+    product?.productImage[0].url || "/dm-logo.svg",
+  );
 
   useEffect(() => {
     dispatch(getProductById(+id!));
   }, [id]);
+
+  useEffect(() => {
+    if (product?.productImage[0].url) {
+      setProductImage(product?.productImage[0].url);
+    }
+  }, [product]);
 
   if (loading === "pending") {
     return <p>Loading</p>;
@@ -25,11 +34,7 @@ export default function ProductDetail() {
     <div className="justify-between gap-12 md:flex">
       <div className="m-auto flex w-full flex-col gap-2 md:w-[40%]">
         <img
-          src={
-            product?.productImage.length !== 0
-              ? product?.productImage[0].url
-              : "/dm-logo.svg"
-          }
+          src={productImage}
           alt="Product Photo"
           className="m-auto h-72 w-full rounded-lg object-cover md:h-[500px]"
         />
@@ -39,7 +44,8 @@ export default function ProductDetail() {
               <img
                 src={image.url}
                 alt="Product Photo"
-                className="h-24 w-32 rounded-lg object-cover"
+                className="h-24 w-32 cursor-pointer rounded-lg object-cover"
+                onClick={() => setProductImage(image.url)}
               />
             );
           })}
