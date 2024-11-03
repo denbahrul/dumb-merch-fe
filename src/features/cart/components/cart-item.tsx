@@ -36,7 +36,12 @@ export default function CartItem({ id, quantity, product }: CartItem) {
           </div>
         </Link>
         <div className="mt-2 flex items-center gap-4 sm:mt-0">
-          <AiOutlineDelete size={24} onClick={() => onDelete(id)} />
+          <AiOutlineDelete
+            size={24}
+            color="#F74D4D"
+            onClick={() => onDelete(id)}
+          />
+          <p>|</p>
           <p>Quantity : {quantity}</p>
         </div>
       </div>
