@@ -18,6 +18,7 @@ import { getUserLogged } from "@/stores/auth/async";
 import AddCategoryPage from "./routes/admin/add-category";
 import AddProductPage from "./routes/admin/add-product";
 import CartPage from "./routes/customer/cart";
+import TransactionList from "./routes/admin/transaction-list";
 
 export default function RouterApp() {
   const dispatch = useAppDispatch();
@@ -82,6 +83,10 @@ export default function RouterApp() {
         {
           path: "product",
           element: <ProductListPage />,
+        },
+        {
+          path: "transaction",
+          element: <TransactionList />,
         },
         {
           path: "add-category",

@@ -1,6 +1,5 @@
 import { useAppDispatch } from "@/features/complain/hooks/use-store";
 import { deleteCartItem } from "@/stores/cart/async";
-import { ICartItem } from "@/types/cart";
 import { IProduct } from "@/types/product";
 import { AiOutlineDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -11,11 +10,18 @@ interface CartItem {
   product: IProduct;
 }
 
+declare global {
+  interface Window {
+    snap: any;
+  }
+}
+
 export default function CartItem({ id, quantity, product }: CartItem) {
   const dispatch = useAppDispatch();
   async function onDelete(cartItemId: number) {
     dispatch(deleteCartItem(cartItemId));
   }
+
   return (
     <div className="flex justify-between rounded-lg bg-background-quaternary p-2">
       <img

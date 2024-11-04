@@ -22,4 +22,8 @@ export const adminNav = [
     path: "/admin/product",
     name: "Product",
   },
+  {
+    path: "/admin/transaction",
+    name: "Transaction",
+  },
 ];

@@ -1,5 +1,4 @@
 import AddCategoryForm from "@/features/category/components/add-category";
-import EditCategoryForm from "../../../features/category/components/edit-category-form";
 
 export default function AddCategoryPage() {
   return (

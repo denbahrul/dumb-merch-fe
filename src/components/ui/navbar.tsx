@@ -46,7 +46,23 @@ function Navbar({ navRole, home, role, chartItemNumber }: INavbar) {
               </NavLink>
             );
           })}
-
+        </div>
+        <div className="flex items-center gap-4">
+          {role === "CUSTOMER" ? (
+            <Link to={"/cart"}>
+              <div>
+                <IconButton aria-label="cart">
+                  <StyledBadge badgeContent={chartItemNumber} color="success">
+                    <ShoppingCartOutlinedIcon
+                      fontSize="medium"
+                      className="h-8 text-white"
+                    />
+                  </StyledBadge>
+                </IconButton>
+              </div>
+            </Link>
+          ) : null}
+          <p>|</p>
           <Link to="/login">
             <p
               className="text-lg font-semibold"
@@ -58,20 +74,6 @@ function Navbar({ navRole, home, role, chartItemNumber }: INavbar) {
             </p>
           </Link>
         </div>
-        {role === "CUSTOMER" ? (
-          <Link to={"/cart"}>
-            <div>
-              <IconButton aria-label="cart">
-                <StyledBadge badgeContent={chartItemNumber} color="success">
-                  <ShoppingCartOutlinedIcon
-                    fontSize="medium"
-                    className="h-8 text-white"
-                  />
-                </StyledBadge>
-              </IconButton>
-            </div>
-          </Link>
-        ) : null}
       </div>
     </div>
   );
