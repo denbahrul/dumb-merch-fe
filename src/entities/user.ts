@@ -1,3 +1,5 @@
+import { IOrder } from "@/types/order";
+
 export interface UserEntity {
   id: number;
   email: string;
@@ -17,6 +19,7 @@ export interface ProfileEntity {
   user: {
     username: string;
     email: string;
+    order: IOrder[];
   };
 }
 

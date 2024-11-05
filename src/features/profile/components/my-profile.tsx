@@ -8,22 +8,23 @@ import { CiEdit } from "react-icons/ci";
 import PageTitle from "../../../components/ui/page-title";
 import ProfileModal from "./profile-modal";
 import ProfileDetail from "./ui/profile-detail";
+import { ProfileEntity } from "@/entities/user";
 
-export default function MyProfile() {
-  const dispatch = useAppDispatch();
-  const { entities, loading } = useAppSelector((state) => state.profile);
-  const profile = entities;
+export default function MyProfile({ profile }: { profile: ProfileEntity }) {
+  // const dispatch = useAppDispatch();
+  // const { entities, loading } = useAppSelector((state) => state.profile);
+  // const profile = entities;
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  useEffect(() => {
-    dispatch(getProfile());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getProfile());
+  // }, []);
 
-  if (loading === "pending") {
-    return <p>Loading</p>;
-  }
+  // if (loading === "pending") {
+  //   return <p>Loading</p>;
+  // }
 
   return (
     <div className="col-span-3">
