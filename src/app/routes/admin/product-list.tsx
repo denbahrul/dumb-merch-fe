@@ -7,7 +7,7 @@ export default function ProductListPage() {
   return (
     <div className="p-8">
       <div className="mb-2 flex items-center justify-between">
-        <h1 className="my-8 text-2xl font-bold">Product List</h1>
+        <h1 className="my-6 text-2xl font-bold">Product List</h1>
         <Button
           color="green"
           h="10"

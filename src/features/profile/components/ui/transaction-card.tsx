@@ -1,6 +1,9 @@
 import { IOrder } from "@/types/order";
 
 export default function TransactionCard({ order }: { order: IOrder }) {
+  async function handlePay() {
+    window.snap.pay(order.transactionToken);
+  }
   return (
     <div className="rounded-md bg-background-quaternary">
       <div className="flex items-center justify-between border-b-[1px] border-b-gray-textA p-2">
@@ -11,10 +14,13 @@ export default function TransactionCard({ order }: { order: IOrder }) {
           <p className="text-sm">Sub Total : {order.totalPrice}</p>
         </div>
         <div className="flex items-center gap-2">
-          <p className="rounded-md bg-yellow-300 px-1 text-xs">
+          <p className="rounded-md bg-rose-600 px-1 text-xs">
             Waiting for payment
           </p>
-          <button className="rounded-md bg-red px-2 py-1 text-xs">
+          <button
+            onClick={handlePay}
+            className="rounded-md bg-red px-2 py-1 text-xs"
+          >
             Pay Now
           </button>
         </div>
@@ -31,10 +37,13 @@ export default function TransactionCard({ order }: { order: IOrder }) {
                     : "/dm-logo.svg"
                 }
                 alt="product photo"
-                className="h-16 w-16 rounded-md object-cover"
+                className="h-20 w-20 rounded-md object-cover"
               />
               <div className="flex flex-col justify-between">
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col">
+                  <p className="text-xs italic">
+                    {item.product.category?.categoryName}
+                  </p>
                   <p className="font-bold text-red">
                     {item.product.productName}
                   </p>
@@ -48,7 +57,7 @@ export default function TransactionCard({ order }: { order: IOrder }) {
             <img
               src="dm-logo.svg"
               alt="dumb merch logo"
-              className="mr-5 h-12 w-12 rounded-md object-cover"
+              className="mr-5 h-10 w-10 rounded-md object-cover"
             />
           </div>
         );

@@ -1,62 +1,71 @@
-import { useAppDispatch } from "@/features/complain/hooks/use-store";
-import { deleteCartItem } from "@/stores/cart/async";
-import { IProduct } from "@/types/product";
-import { AiOutlineDelete } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { IOrder } from "@/types/order";
 
-// interface CartItem {
-//   id: number;
-//   quantity: number;
-//   product: IProduct;
-// }
-
-export default function TransactionItem() {
-  // const dispatch = useAppDispatch();
-  // async function onDelete(cartItemId: number) {
-  //   dispatch(deleteCartItem(cartItemId));
-  // }
+export default function TransactionItem({ order }: { order: IOrder }) {
   return (
-    <div className="rounded-lg bg-background-quaternary p-2">
-      <div className="flex justify-between">
-        <img
-          src="https://res.cloudinary.com/dlhqbphej/image/upload/v1730435316/dumb-merch/uznlyipzfnmapn2jcra2.jpg"
-          // src={
-          //   product?.productImage[0]
-          //     ? product?.productImage[0]?.url
-          //     : "/dm-logo.svg"
-          // }
-          alt="Product Photo"
-          className="h-24 w-24 rounded-lg object-cover"
-        />
-        <div className="w-full items-center justify-between px-4 sm:flex">
-          {/* <Link to={`/product/${product.id}`}> */}
-          <div className="flex flex-col">
-            <p className="text-red">Laptop</p>
-            <p className="text-lg">Lenovo Ideapad 5i</p>
-            <p className="font-semibold italic">3 X Rp. 12000000</p>
-          </div>
-          {/* </Link> */}
-          <div className="mt-2 flex items-center gap-4 sm:mt-0">
-            {/* <AiOutlineDelete
-            size={24}
-            color="#F74D4D"
-            onClick={() => onDelete(id)}
-          /> */}
-            <p>Status :</p>
-            <p>Pending</p>
-          </div>
+    <div className="flex flex-col rounded-lg bg-background-quaternary p-2">
+      <div className="flex items-center justify-between border-b-[1px] border-b-gray-textA p-2">
+        <div>
+          <p className="text-xs font-light text-red">
+            <span className="font-semibold">Saturday</span>, 14 Juli 2021
+          </p>
+          <p className="text-sm">Total Amount : Rp {order.totalPrice}</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <p className="rounded-md bg-green px-2 text-sm">Shipping</p>
+          {/* <button className="rounded-md bg-red px-2 py-1 text-xs">
+            Deliver
+          </button> */}
         </div>
       </div>
-      <div className="mt-2 border-t-[1px] border-gray-textA px-1 pt-2">
-        <p className="text-xs font-light">Total Amount</p>
-        <p className="mb-2 text-sm font-semibold">Rp. 36000000</p>
+      <div className="mb-2 border-b-[1px] border-gray-textA px-1 py-2">
         <p className="text-xs font-light">Customer Name</p>
-        <p className="mb-2 text-sm font-semibold">Toni Kroos</p>
+        <p className="mb-2 text-sm font-semibold">
+          {order.user.profile.fullName}
+        </p>
         <p className="text-xs font-light">Phone Number</p>
-        <p className="mb-2 text-sm font-semibold">085714611032</p>
+        <p className="mb-2 text-sm font-semibold">{order.user.profile.phone}</p>
         <p className="text-xs font-light">Address</p>
-        <p className="mb-2 text-sm font-semibold">Jakarta, Indonesia</p>
+        <p className="mb-2 text-sm font-semibold">
+          {order.user.profile.address}
+        </p>
       </div>
+      {order.orderItems.map((item) => {
+        return (
+          <div className="flex items-center justify-between p-1">
+            <div className="flex items-center gap-2">
+              <img
+                src={
+                  item?.product?.productImage &&
+                  item.product.productImage.length > 0
+                    ? item.product.productImage[0].url
+                    : "/dm-logo.svg"
+                }
+                alt="product photo"
+                className="h-20 w-20 rounded-md object-cover"
+              />
+              <div className="flex flex-col justify-between">
+                <div className="flex flex-col">
+                  <p className="text-xs italic">
+                    {item.product.category?.categoryName}
+                  </p>
+                  <p className="font-bold text-red">
+                    {item.product.productName}
+                  </p>
+                  <p className="text-xs">
+                    Price : {item.product.price} X {item.quantity}
+                  </p>
+                  <p className="text-xs">Total Price : {item.totalPrice}</p>
+                </div>
+              </div>
+            </div>
+            <img
+              src="/dm-logo.svg"
+              alt="dumb merch logo"
+              className="mr-5 h-10 w-10 rounded-md object-cover"
+            />
+          </div>
+        );
+      })}
     </div>
   );
 }

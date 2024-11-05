@@ -1,3 +1,4 @@
+import { UserEntity } from "@/entities/user";
 import { IProduct } from "./product";
 
 export interface IOrder {
@@ -7,6 +8,7 @@ export interface IOrder {
   status: statusEnum;
   totalPrice: number;
   createdAt: Date;
+  user: UserEntity;
 }
 
 enum statusEnum {
