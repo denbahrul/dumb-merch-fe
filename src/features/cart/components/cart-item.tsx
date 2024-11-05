@@ -46,6 +46,7 @@ export default function CartItem({ id, quantity, product }: CartItem) {
             size={24}
             color="#F74D4D"
             onClick={() => onDelete(id)}
+            className="cursor-pointer"
           />
           <p>|</p>
           <p>Quantity : {quantity}</p>

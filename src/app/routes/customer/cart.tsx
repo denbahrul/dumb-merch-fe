@@ -10,11 +10,13 @@ export default function CartPage() {
 
   async function handlePay() {
     try {
-      const res = await apiV1.post("/payment", {});
-      console.log(res.data);
+      const res = await apiV1.post("/order", {
+        orderItem: cart?.cartItem,
+        totalPrice: cart?.totalPrice,
+      });
 
-      if (res.data.result.token) {
-        window.snap.pay(res.data.result.token);
+      if (res.data.data.token) {
+        window.snap.pay(res.data.data.token);
       }
     } catch (error) {
       console.log(error);
@@ -44,18 +46,20 @@ export default function CartPage() {
           })}
         </div>
       )}
-      <div className="fixed bottom-0 left-0 flex w-full items-center justify-between bg-background-quaternary px-8 py-4">
-        <div>
-          <p>Total :</p>
-          <p>Rp. 36000000</p>
+      <div className="mt-8 border-t-[1px] border-t-gray-textA pt-8">
+        <div className="flex w-full items-center justify-between rounded-lg bg-background-quaternary p-4 pt-4">
+          <div>
+            <p>Total :</p>
+            <p>Rp. {cart?.totalPrice}</p>
+          </div>
+          <Button
+            onClick={handlePay}
+            color="red"
+            h="10"
+            otherStyle=""
+            title="Checkout"
+          />
         </div>
-        <Button
-          onClick={handlePay}
-          color="red"
-          h="10"
-          otherStyle=""
-          title="Checkout"
-        />
       </div>
     </div>
   );

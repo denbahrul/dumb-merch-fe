@@ -31,7 +31,9 @@ export default function ProductDetail() {
   }, [product]);
 
   async function onClick() {
-    await dispatch(addItemToCart({ productId: +id!, quantity }));
+    await dispatch(
+      addItemToCart({ productId: +id!, quantity, price: product?.price! }),
+    );
   }
 
   if (loading === "pending") {

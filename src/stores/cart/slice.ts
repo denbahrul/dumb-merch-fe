@@ -41,6 +41,8 @@ const cartSlice = createSlice({
       } else {
         existingItem.quantity = newItem.quantity;
       }
+      state.entities!.totalPrice =
+        (state.entities!.totalPrice || 0) + newItem.totalPrice;
 
       state.loading = "succeeded";
     });
@@ -58,7 +60,8 @@ const cartSlice = createSlice({
           (item) => item.id !== action.payload.id,
         );
       }
-
+      state.entities!.totalPrice =
+        (state.entities!.totalPrice || 0) - action.payload.totalPrice;
       state.loading = "succeeded";
     });
 

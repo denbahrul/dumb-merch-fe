@@ -19,6 +19,7 @@ import AddCategoryPage from "./routes/admin/add-category";
 import AddProductPage from "./routes/admin/add-product";
 import CartPage from "./routes/customer/cart";
 import TransactionList from "./routes/admin/transaction-list";
+import AdminDashboard from "./routes/admin/dashboard";
 
 export default function RouterApp() {
   const dispatch = useAppDispatch();
@@ -69,8 +70,8 @@ export default function RouterApp() {
       element: <AdminLayout />,
       children: [
         {
-          path: "home",
-          element: <HomePage />,
+          path: "dashboard",
+          element: <AdminDashboard />,
         },
         {
           path: "complain",

@@ -6,6 +6,7 @@ export interface ICart {
     cartItem: number;
   };
   cartItem: ICartItem[];
+  totalPrice: number;
 }
 
 export interface ICartItem {
@@ -14,4 +15,5 @@ export interface ICartItem {
   productId: number;
   product: IProduct;
   quantity: number;
+  totalPrice: number;
 }
