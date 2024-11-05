@@ -13,7 +13,6 @@ export default function CartPage() {
       const res = await apiV1.post("/order", {
         orderItem: cart?.cartItem,
         totalPrice: cart?.totalPrice,
-        cartId: cart?.id,
       });
 
       if (res.data.data.token) {
