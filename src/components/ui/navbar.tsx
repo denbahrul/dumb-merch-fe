@@ -25,7 +25,7 @@ interface INavbar {
 
 function Navbar({ navRole, home, role, chartItemNumber }: INavbar) {
   return (
-    <div className="fixed m-auto w-[100%] bg-background-primary">
+    <div className="fixed z-10 m-auto w-[100%] bg-background-primary">
       <div className="m-auto flex max-w-[1280px] items-center justify-between px-8 py-4">
         <div>
           <Link to={`/${home}`}>
