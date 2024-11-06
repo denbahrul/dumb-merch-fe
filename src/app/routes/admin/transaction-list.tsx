@@ -25,7 +25,7 @@ export default function TransactionList() {
       </div>
       <div className="flex flex-col gap-4">
         {orders?.map((order) => {
-          return <TransactionItem order={order} />;
+          return <TransactionItem key={order.id} order={order} />;
         })}
       </div>
     </div>

@@ -1,6 +1,10 @@
 import { BarChart } from "@mui/x-charts/BarChart";
 
-export default function BarChartItem() {
+export default function BarChartItem({
+  monthlySales,
+}: {
+  monthlySales: number[];
+}) {
   return (
     <BarChart
       sx={{
@@ -51,7 +55,7 @@ export default function BarChartItem() {
       ]}
       series={[
         {
-          data: [8, 2, 3, 10, 9, 6, 7, 9, 9, 10, 8, 7],
+          data: monthlySales,
         },
       ]}
       width={600}
