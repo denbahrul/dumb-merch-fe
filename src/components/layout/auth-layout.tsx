@@ -9,7 +9,7 @@ export default function AuthLayout() {
   if (auth?.role === roleEnum.CUSTOMER) {
     navigate("/");
   } else if (auth?.role === roleEnum.ADMIN) {
-    navigate("/admin");
+    navigate("/admin/dashboard");
   }
   return (
     <div className="m-auto max-w-[1280px] items-center justify-between gap-10 px-8 pb-16 pt-16 md:flex md:h-[100vh] md:pt-0">

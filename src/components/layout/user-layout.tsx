@@ -24,7 +24,7 @@ export default function UserLayout() {
   if (!auth?.role && loading !== "pending") {
     navigate("/login");
   } else if (auth?.role === roleEnum.ADMIN) {
-    navigate("/admin");
+    navigate("/admin/dashboard");
   }
 
   return (
