@@ -1,13 +1,7 @@
-import ChatList from "../../features/complain/components/chat-list";
-import UserComplainList from "../../features/complain/components/user-complain-list";
+import ChatRoom from "@/features/complain/components/chat-room";
 
 function ComplainPage() {
-  return (
-    <div className="flex h-[100%] justify-between px-8">
-      <UserComplainList />
-      <ChatList />
-    </div>
-  );
+  return <ChatRoom />;
 }
 
 export default ComplainPage;
