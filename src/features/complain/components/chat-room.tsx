@@ -11,31 +11,36 @@
 // }
 
 import { Avatar } from "@mui/material";
-import React, { useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
 import { io } from "socket.io-client";
 import { red } from "@mui/material/colors";
+import { useAppSelector } from "../hooks/use-store";
 
-const ChatRoom = () => {
-  const { userId } = useParams();
+export default function ChatRoom() {
+  const user = useAppSelector((state) => state.auth.entities);
 
   const socket = useMemo(() => {
+    if (!user) return null;
     return io("http://localhost:3000", {
       query: {
-        userId,
+        userId: user.id,
       },
     });
-  }, []);
+  }, [user]);
+
   const [connected, setConnected] = useState(false);
+  console.log("socket connect", connected);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<
-    { message: string; userId: string; username: string }[]
+    { message: string; userId: string; username: string; image: string }[]
   >([]);
   const [listRooms, setListRooms] = useState<string[]>([]);
   const [selectedRoom, setSelectedRoom] = useState("");
-  const [userInfo, setUserInfo] = useState({ username: "", userId: userId });
+  const [userInfo, setUserInfo] = useState({ username: "", userId: user?.id });
 
   useEffect(() => {
+    if (!socket) return;
+
     socket.on("connect", () => {
       console.log("connected");
       setConnected(true);
@@ -43,7 +48,14 @@ const ChatRoom = () => {
 
     socket.on(
       "fullChats",
-      (data: { message: string; userId: string; username: string }[]) => {
+      (
+        data: {
+          message: string;
+          userId: string;
+          username: string;
+          image: string;
+        }[],
+      ) => {
         setMessages(data);
       },
     );
@@ -55,14 +67,23 @@ const ChatRoom = () => {
 
     socket.on("receiveChats", (data) => {
       console.log(data);
-      setMessages((prev) => [...prev, data]);
+      setMessages((prev) => [...(prev || []), data]);
+      setMessage("");
     });
 
     return () => {
       socket.off("connect");
       socket.off("receiveChats");
     };
-  }, []);
+  }, [socket]);
+
+  if (!socket) {
+    return <p>Loading</p>;
+  }
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <div className="flex h-[100%] justify-between px-8">
@@ -95,61 +116,66 @@ const ChatRoom = () => {
       </div>
 
       {/* === */}
-      <div className="flex h-[100%] w-full flex-col justify-end gap-8 py-4 pl-8 md:w-[70%]">
-        <p className="rounded-md bg-background-secondary p-2 text-center">
-          room-{selectedRoom}
-        </p>
-        <div className="flex h-full flex-col gap-8 overflow-y-auto scrollbar-hide">
-          {messages?.length > 0 &&
-            messages.map((message) => (
-              <div key={message.message}>
-                {message.userId === userInfo.userId ? (
-                  <div className="flex justify-end">
-                    <div className="h-fit w-fit rounded-l-lg rounded-t-lg bg-background-quaternary px-4 py-2">
-                      <p className="font-extralight">{message.message}</p>
-                    </div>
+      <div className="flex h-[100%] w-full flex-col justify-center gap-8 py-4 pl-8 md:w-[70%]">
+        {selectedRoom ? (
+          <div className="flex h-[100%] w-full flex-col justify-end gap-8">
+            <p className="rounded-md bg-background-secondary p-2 text-center">
+              room-{selectedRoom}
+            </p>
+            <div className="flex h-full flex-col gap-4 overflow-y-auto scrollbar-hide">
+              {messages?.length > 0 &&
+                messages.map((message) => (
+                  <div key={message.message}>
+                    {message.userId == String(user.id) ? (
+                      <div className="flex justify-end">
+                        <div className="h-fit w-fit rounded-l-lg rounded-t-lg bg-background-quaternary px-4 py-2">
+                          <p className="font-extralight">{message.message}</p>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-4">
+                        <Avatar
+                          sx={{ bgcolor: red[500], width: 50, height: 50 }}
+                          alt={message.username}
+                          src={message.image}
+                        />
+                        <div className="h-fit w-fit rounded-r-lg rounded-t-lg bg-background-teritery px-4 py-2">
+                          <p className="font-extralight">{message.message}</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                ) : (
-                  <div className="flex items-center gap-4">
-                    <Avatar
-                      sx={{ bgcolor: red[500], width: 50, height: 50 }}
-                      alt="Remy Sharp"
-                      src="https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                    />
-                    <div className="h-fit w-fit rounded-r-lg rounded-t-lg bg-background-teritery px-4 py-2">
-                      <p className="font-extralight">{message.message}</p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-        </div>
-        <div className="flex gap-2">
-          <input
-            className="h-12 rounded-lg bg-background-quaternary p-5"
-            placeholder="Send Message"
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            style={{ width: "100%" }}
-          />
-          <button
-            onClick={() =>
-              socket.emit("sendChat", {
-                roomId: selectedRoom,
-                userId: userInfo.userId,
-                username: userInfo.username,
-                message,
-              })
-            }
-            className="rounded-md bg-red px-4"
-          >
-            Send
-          </button>
-        </div>
+                ))}
+            </div>
+            <div className="flex gap-2">
+              <input
+                className="h-12 rounded-lg bg-background-quaternary p-5"
+                placeholder="Send Message"
+                type="text"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                style={{ width: "100%" }}
+              />
+              <button
+                onClick={() =>
+                  socket.emit("sendChat", {
+                    roomId: selectedRoom,
+                    userId: String(user?.id),
+                    username: user?.username,
+                    image: user?.profile.profilePhoto,
+                    message,
+                  })
+                }
+                className="rounded-md bg-red px-4"
+              >
+                Send
+              </button>
+            </div>
+          </div>
+        ) : (
+          <p className="justify-center text-center">No selected chat room</p>
+        )}
       </div>
     </div>
   );
-};
-
-export default ChatRoom;
+}

@@ -3,13 +3,13 @@ import { getUserLogged } from "./async";
 import { AuthDTO } from "@/features/auth/types/auth.dto";
 
 interface AuthState {
-  entities?: AuthDTO;
+  entities: AuthDTO | null;
   loading: "idle" | "pending" | "succeeded" | "failed";
   error?: string;
 }
 
 const initialState: AuthState = {
-  entities: {} as AuthDTO,
+  entities: null,
   loading: "idle",
   error: undefined,
 };

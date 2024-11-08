@@ -48,7 +48,7 @@ export default function RouterApp() {
           element: <HomePage />,
         },
         {
-          path: "/complain/:userId",
+          path: "/complain",
           element: <ComplainPage />,
         },
         {
@@ -74,7 +74,7 @@ export default function RouterApp() {
           element: <AdminDashboard />,
         },
         {
-          path: "complain/:userId",
+          path: "complain",
           element: <ComplainPage />,
         },
         {
