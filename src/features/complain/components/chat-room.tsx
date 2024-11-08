@@ -15,6 +15,7 @@ import { useEffect, useMemo, useState } from "react";
 import { io } from "socket.io-client";
 import { red } from "@mui/material/colors";
 import { useAppSelector } from "../hooks/use-store";
+import { IMessage } from "@/types/chat";
 
 export default function ChatRoom() {
   const user = useAppSelector((state) => state.auth.entities);
@@ -31,9 +32,7 @@ export default function ChatRoom() {
   const [connected, setConnected] = useState(false);
   console.log("socket connect", connected);
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState<
-    { message: string; userId: string; username: string; image: string }[]
-  >([]);
+  const [messages, setMessages] = useState<IMessage[]>([]);
   const [listRooms, setListRooms] = useState<string[]>([]);
   const [selectedRoom, setSelectedRoom] = useState("");
   const [userInfo, setUserInfo] = useState({ username: "", userId: user?.id });
@@ -46,19 +45,9 @@ export default function ChatRoom() {
       setConnected(true);
     });
 
-    socket.on(
-      "fullChats",
-      (
-        data: {
-          message: string;
-          userId: string;
-          username: string;
-          image: string;
-        }[],
-      ) => {
-        setMessages(data);
-      },
-    );
+    socket.on("fullChats", (data: IMessage[]) => {
+      setMessages(data);
+    });
 
     socket.on("connected", (data) => {
       console.log(data);
@@ -125,22 +114,22 @@ export default function ChatRoom() {
             <div className="flex h-full flex-col gap-4 overflow-y-auto scrollbar-hide">
               {messages?.length > 0 &&
                 messages.map((message) => (
-                  <div key={message.message}>
+                  <div key={message.id}>
                     {message.userId == String(user.id) ? (
                       <div className="flex justify-end">
                         <div className="h-fit w-fit rounded-l-lg rounded-t-lg bg-background-quaternary px-4 py-2">
-                          <p className="font-extralight">{message.message}</p>
+                          <p className="font-extralight">{message.content}</p>
                         </div>
                       </div>
                     ) : (
                       <div className="flex items-center gap-4">
                         <Avatar
                           sx={{ bgcolor: red[500], width: 50, height: 50 }}
-                          alt={message.username}
-                          src={message.image}
+                          alt={message.user.profile.fullname}
+                          src={String(message.user.profile.profilePhoto)}
                         />
                         <div className="h-fit w-fit rounded-r-lg rounded-t-lg bg-background-teritery px-4 py-2">
-                          <p className="font-extralight">{message.message}</p>
+                          <p className="font-extralight">{message.content}</p>
                         </div>
                       </div>
                     )}
