@@ -13,7 +13,8 @@ export default function ProductDetail() {
   const { id } = useParams();
   const product = useAppSelector((state) => state.product.currentProduct);
   const loading = useAppSelector((state) => state.product.loading);
-  const [quantity, setQuantity] = useState<number>(1);
+  // const [quantity, setQuantity] = useState<number>(1);
+  const quantity = 1;
   const [productImage, setProductImage] = useState(
     product?.productImage[0]?.url || "/dm-logo.svg",
   );

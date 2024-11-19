@@ -1,14 +1,9 @@
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "@/features/complain/hooks/use-store";
-import { getProfile } from "@/stores/profile/async";
-import { useEffect, useState } from "react";
+import { ProfileEntity } from "@/entities/user";
+import { useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import PageTitle from "../../../components/ui/page-title";
 import ProfileModal from "./profile-modal";
 import ProfileDetail from "./ui/profile-detail";
-import { ProfileEntity } from "@/entities/user";
 
 export default function MyProfile({ profile }: { profile: ProfileEntity }) {
   // const dispatch = useAppDispatch();

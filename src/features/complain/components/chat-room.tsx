@@ -1,15 +1,3 @@
-// import ChatList from "./chat-list";
-// import UserComplainList from "./user-complain-list";
-
-// export default function ChatRoom() {
-//   return (
-// <div className="flex h-[100%] justify-between px-8">
-//   <UserComplainList />
-//   <ChatList />
-// </div>
-//   );
-// }
-
 import { Avatar } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { io } from "socket.io-client";
@@ -35,7 +23,7 @@ export default function ChatRoom() {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [listRooms, setListRooms] = useState<string[]>([]);
   const [selectedRoom, setSelectedRoom] = useState("");
-  const [userInfo, setUserInfo] = useState({ username: "", userId: user?.id });
+  // const [userInfo, setUserInfo] = useState({ username: "", userId: user?.id });
 
   useEffect(() => {
     if (!socket) return;
@@ -95,7 +83,7 @@ export default function ChatRoom() {
                 src="https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               />
               <div className="hidden md:block">
-                <p>room-{room}</p>
+                <p>chat-{room}</p>
                 <p className="text-sm text-gray-textB">
                   Yes, is there anything I can help
                 </p>
@@ -109,7 +97,7 @@ export default function ChatRoom() {
         {selectedRoom ? (
           <div className="flex h-[100%] w-full flex-col justify-end gap-8">
             <p className="rounded-md bg-background-secondary p-2 text-center">
-              room-{selectedRoom}
+              chat-{selectedRoom}
             </p>
             <div className="flex h-full flex-col gap-4 overflow-y-auto scrollbar-hide">
               {messages?.length > 0 &&
@@ -125,8 +113,8 @@ export default function ChatRoom() {
                       <div className="flex items-center gap-4">
                         <Avatar
                           sx={{ bgcolor: red[500], width: 50, height: 50 }}
-                          alt={message.user.profile.fullname}
-                          src={String(message.user.profile.profilePhoto)}
+                          alt={message?.user?.profile?.fullname}
+                          src={String(message?.user?.profile?.profilePhoto)}
                         />
                         <div className="h-fit w-fit rounded-r-lg rounded-t-lg bg-background-teritery px-4 py-2">
                           <p className="font-extralight">{message.content}</p>
