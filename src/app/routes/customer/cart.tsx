@@ -1,12 +1,22 @@
 import Button from "@/components/ui/button";
 import PageTitle from "@/components/ui/page-title";
 import CartItem from "@/features/cart/components/cart-item";
-import { useAppSelector } from "@/features/complain/hooks/use-store";
+import {
+  useAppSelector,
+  useAppDispatch,
+} from "@/features/complain/hooks/use-store";
 import { apiV1 } from "@/libs/api";
+import { useEffect } from "react";
+import { getCart } from "@/stores/cart/async";
 
 export default function CartPage() {
   const { entities, loading } = useAppSelector((state) => state.cart);
   const cart = entities;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getCart());
+  }, []);
 
   async function handlePay() {
     try {
