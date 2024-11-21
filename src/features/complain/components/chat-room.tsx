@@ -10,7 +10,7 @@ export default function ChatRoom() {
 
   const socket = useMemo(() => {
     if (!user) return null;
-    return io("http://localhost:3000", {
+    return io(import.meta.env.VITE_API_URL, {
       query: {
         userId: user.id,
       },
